@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import WalletButton from '@/components/walletbutton'
+import ImageIa from '@/components/ia'
 
 const LoginPage = () => {
     return (
@@ -16,6 +17,7 @@ const LoginPage = () => {
             >
                 <h1 className="ribe text-5xl font-bold mb-10">MIDAS CHEST</h1>
                 <WalletButton />
+                <ImageIa />
             </motion.div>
         </div>
     )

@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Navbar from '@/components/navbar';
+import web3 from "../../../instances/web3";
+import NFTContract from "../../../instances/NFT";
 
 const Card = () => {
     const cardData = [
@@ -55,5 +57,11 @@ const Card = () => {
         </>
     );
 };
+
+const getServerSideProps = async () => {
+    const accounts = await web3.eth.getAccounts();
+    const NFTInstance = NFTContract(web3);
+    const name = await NFTInstance.methods.getNFTs().call({from: accounts[0]});
+}
 
 export default Card;

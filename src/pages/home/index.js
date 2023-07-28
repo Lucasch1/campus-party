@@ -5,8 +5,11 @@ import Navbar from '@/components/navbar';
 import web3 from "../../../instances/web3";
 import NFTContract from "../../../instances/NFT";
 
-const Card = () => {
+const Card = ({ nfts }) => {
+    console.log(nfts);
+
     const cardData = [
+        
         {
             //imageSrc: 'caminho/para/imagem1.jpg',
             title: 'Título do Card 1',
@@ -58,10 +61,12 @@ const Card = () => {
     );
 };
 
-const getServerSideProps = async () => {
+export const getServerSideProps = async () => {
     const accounts = await web3.eth.getAccounts();
     const NFTInstance = NFTContract(web3);
-    const name = await NFTInstance.methods.getNFTs().call({from: accounts[0]});
+    const nfts = await NFTInstance.methods.getNFts().call({from: accounts[0]});
+    
+    return { props: { nfts }}
 }
 
 export default Card;

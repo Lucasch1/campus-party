@@ -22,4 +22,12 @@ contract NFT is ERC721Enumerable, Ownable {
     function getTokenMetadata(uint256 tokenId) public view returns (string memory) {
         return (idIpfs[tokenId]);
     }
+
+    function getNFts() public view returns (uint[] memory) {
+        return ids;
+    }
+
+    function getUserNFTs(address user) public view returns (uint[] memory) {
+        return userNFTs[user];
+    }
 }

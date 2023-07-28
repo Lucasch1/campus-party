@@ -1,13 +1,12 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import WalletButton from '@/components/walletbutton'
+import React from 'react';
+import { motion } from 'framer-motion';
+import WalletButton from '@/components/walletbutton';
 
 const LoginPage = () => {
     return (
         <div className="flex items-center justify-end h-screen bg-[url(../../public/bg.png)] bg-cover bg-fixed bg-center">
             <div className="fixed inset-0 "></div>
 
-            {/* Login Box */}
             <motion.div
                 initial={{ x: '100%', opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -18,7 +17,7 @@ const LoginPage = () => {
                 <WalletButton />
             </motion.div>
         </div>
-    )
-}
+    );
+};
 
-export default LoginPage
+export default LoginPage;

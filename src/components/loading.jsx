@@ -1,18 +1,34 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 
-const AnimatedLoading = () => {
-  return (
-    <div className="flex items-center justify-center h-screen bg-gray-900">
-      <motion.div
-        className="w-16 h-16 rounded-full border-4 border-white border-t-4 border-t-transparent animate-spin"
-        style={{
-          boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
-        }}
-        animate={{ rotate: 360 }}
-        transition={{ loop: Infinity, duration: 1.5, ease: 'linear' }}
-      ></motion.div>
-    </div>
-  );
+const LoadingShape = ({ color }) => {
+    const shapeVariants = {
+        square: {
+            borderRadius: '0%',
+            rotate: 0,
+        },
+        triangle: {
+            borderRadius: '50%',
+            rotate: 120,
+        },
+    };
+
+    return (
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-black/75 backdrop-blur-2xl z-40">
+            <motion.div
+                className="w-40 h-40"
+                style={{ backgroundColor: color }}
+                variants={shapeVariants}
+                animate="triangle"
+                transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    repeatType: 'reverse',
+                    ease: 'easeInOut',
+                }}
+            ></motion.div>
+        </div>
+    );
 };
 
-export default AnimatedLoading;
+export default LoadingShape;

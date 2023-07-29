@@ -18,9 +18,14 @@ const Card = ({ nfts }) => {
     const mintHandler = async () => {
         const accounts = await web3.eth.getAccounts();
         const NFTInstance = NFTContract(web3);
-        const result = await NFTInstance.methods.mint(accounts[0], "https://tomato-secure-lobster-753.mypinata.cloud/ipfs/QmetdCtV3nt4kgYwe7S6BXrXrGTqZsHn57r7DDMyoeJSJ5?_gl=1*42x03g*_ga*NDEzMDMxNTI1LjE2ODk4NjUxMTY.*_ga_5RMPXG14TE*MTY5MDU5MDA4My4zLjEuMTY5MDU5MDA4OC41NS4wLjA.").send({ from: accounts[0] });
+        const result = await NFTInstance.methods
+            .mint(
+                accounts[0],
+                'https://tomato-secure-lobster-753.mypinata.cloud/ipfs/QmetdCtV3nt4kgYwe7S6BXrXrGTqZsHn57r7DDMyoeJSJ5?_gl=1*42x03g*_ga*NDEzMDMxNTI1LjE2ODk4NjUxMTY.*_ga_5RMPXG14TE*MTY5MDU5MDA4My4zLjEuMTY5MDU5MDA4OC41NS4wLjA.'
+            )
+            .send({ from: accounts[0] });
         console.log(result);
-    }
+    };
 
     const cardData = [
         {
@@ -60,7 +65,10 @@ const Card = ({ nfts }) => {
                             className="w-full h-2/3 object-cover bg-white rounded-lg"
                         />
                         <h2 className="text-3xl text-white font-semibold my-4">{card.title}</h2>
-                        <button onClick={mintHandler} className="mt-2 w-2/3 bg-white hover:bg-black hover:text-white px-4 py-4 rounded-xl">
+                        <button
+                            onClick={mintHandler}
+                            className="mt-2 w-2/3 bg-white hover:bg-black hover:text-white px-4 py-4 rounded-xl"
+                        >
                             {card.buttonText}
                         </button>
                         <motion.div

@@ -2,24 +2,40 @@ import web3 from '../../instances/web3';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const WalletButton = () => {
     const [error, setError] = useState('');
     const [address, setAddress] = useState(null);
+    const router = useRouter();
     //const walletButton = document.getElementById('walletButton');
 
-    useEffect(() => {
-        const getAddress = async () => {
-            try {
-                const accounts = await web3.eth.getAccounts();
-                setAddress(accounts[0]);
-                documentgetElementById('walletButton').textContent = address.substring(0, 8) + '...';
-            } catch (err) {
-                setError(err.message);
+    useEffect(
+        () => {
+            const getAddress = async () => {
+                try {
+                    const accounts = await web3.eth.getAccounts();
+                    setAddress(accounts[0]);
+                    documentgetElementById('walletButton').textContent = address.substring(0, 8) + '...';
+                } catch (err) {
+                    setError(err.message);
+                }
+            };
+            getAddress();
+            const userLoggedIn = isUserLoggedIn();
+            if (userLoggedIn) {
+                router.push('/home');
             }
-        };
-        getAddress();
-    }, [address]);
+        },
+        [address],
+        [router]
+    );
+
+    const isUserLoggedIn = () => {
+        if (address) {
+            return true;
+        }
+    };
 
     const connectWalletHandler = async () => {
         /* verificar se a metamask esta disponivel */
@@ -43,15 +59,13 @@ const WalletButton = () => {
 
     if (address) {
         return (
-            <Link href="/home">
-                <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="border-white border-solid border hover:bg-white hover:text-black py-2 px-4 rounded-full"
-                >
-                    MINHA CONTA
-                </motion.button>
-            </Link>
+            <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="border-white border-solid border hover:bg-white hover:text-black py-2 px-4 rounded-full"
+            >
+                MINHA CONTA
+            </motion.button>
         );
     }
 

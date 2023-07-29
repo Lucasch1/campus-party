@@ -5,6 +5,7 @@ import Navbar from '@/components/navbar';
 import web3 from '../../../instances/web3';
 import NFTContract from '../../../instances/NFT';
 import { useState } from 'react';
+import maps from '../../../public/mapa.svg';
 
 const Card = ({ nfts }) => {
     console.log(nfts);
@@ -57,12 +58,12 @@ const Card = ({ nfts }) => {
                         key={index}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-black/50 rounded-lg shadow p-6 cursor-pointer relative h-2/3 my-auto flex flex-col items-center"
+                        className="bg-[url(../../public/mapa.svg)] bg-contain bg-no-repeat bg-center aspect-[1/1.5] p-6 cursor-pointer relative  my-auto flex flex-col items-center"
                     >
                         <Image
                             src={card.imageSrc}
                             alt={card.title}
-                            className="w-full h-2/3 object-cover bg-white rounded-lg"
+                            className="w-full h-2/3 object-cover rounded-lg"
                         />
                         <h2 className="text-3xl text-white font-semibold my-4">{card.title}</h2>
                         <button
@@ -76,7 +77,7 @@ const Card = ({ nfts }) => {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="absolute top-6 right-6 px-4 py-2 rounded-lg"
+                            className="absolute top-1/4 right-10 px-4 py-2 rounded-lg"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

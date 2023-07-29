@@ -2,40 +2,24 @@ import web3 from '../../instances/web3';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 const WalletButton = () => {
     const [error, setError] = useState('');
     const [address, setAddress] = useState(null);
-    const router = useRouter();
     //const walletButton = document.getElementById('walletButton');
 
-    useEffect(
-        () => {
-            const getAddress = async () => {
-                try {
-                    const accounts = await web3.eth.getAccounts();
-                    setAddress(accounts[0]);
-                    documentgetElementById('walletButton').textContent = address.substring(0, 8) + '...';
-                } catch (err) {
-                    setError(err.message);
-                }
-            };
-            getAddress();
-            const userLoggedIn = isUserLoggedIn();
-            if (userLoggedIn) {
-                router.push('/home');
+    useEffect(() => {
+        const getAddress = async () => {
+            try {
+                const accounts = await web3.eth.getAccounts();
+                setAddress(accounts[0]);
+                documentgetElementById('walletButton').textContent = address.substring(0, 8) + '...';
+            } catch (err) {
+                setError(err.message);
             }
-        },
-        [address],
-        [router]
-    );
-
-    const isUserLoggedIn = () => {
-        if (address) {
-            return true;
-        }
-    };
+        };
+        getAddress();
+    }, [address]);
 
     const connectWalletHandler = async () => {
         /* verificar se a metamask esta disponivel */

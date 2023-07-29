@@ -2,15 +2,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Navbar from '@/components/navbar';
+import web3 from '../../../instances/web3';
+import NFTContract from '../../../instances/NFT';
 import { useState } from 'react';
 
-const Card = () => {
+const Card = ({ nfts }) => {
+    console.log(nfts);
+
     const [showPopup, setShowPopup] = useState(null);
 
     const handleIconClick = (index) => {
         setShowPopup(index === showPopup ? null : index);
     };
-
     const cardData = [
         {
             //imageSrc: 'caminho/para/imagem1.jpg',
@@ -85,11 +88,11 @@ const Card = () => {
                         className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-white"
                     >
                         <div onClick={() => handleIconClick(null)} className="bg-black/50 flex p-4 rounded-lg">
-                        <Image
-                            src={cardData[showPopup].imageSrc}
-                            alt={cardData[showPopup].title}
-                            className="w-full h-2/3 object-cover bg-white rounded-lg"
-                        />
+                            <Image
+                                src={cardData[showPopup].imageSrc}
+                                alt={cardData[showPopup].title}
+                                className="w-full h-2/3 object-cover bg-white rounded-lg"
+                            />
                             <h3 className="text-xl font-semibold">{cardData[showPopup].title}</h3>
                         </div>
                     </motion.div>
@@ -97,6 +100,14 @@ const Card = () => {
             </div>
         </>
     );
+};
+
+export const getServerSideProps = async () => {
+    const accounts = await web3.eth.getAccounts();
+    const NFTInstance = NFTContract(web3);
+    const nfts = await NFTInstance.methods.getNFts().call({ from: accounts[0] });
+
+    return { props: { nfts } };
 };
 
 export default Card;

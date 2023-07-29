@@ -8,22 +8,30 @@ import { useState } from 'react';
 
 const Card = ({ nfts }) => {
     console.log(nfts);
-
     const [showPopup, setShowPopup] = useState(null);
 
     const handleIconClick = (index) => {
         setShowPopup(index === showPopup ? null : index);
     };
 
+    const fetchData = async () => {
+        try {
+            const response = await fetch('/api/backend');
+            const result = await response.json();
+            const dat = result.resultado.photos[0].url;
+            return dat;
+        } catch (error) {
+            console.error('Erro ao buscar dados da API', error);
+        }
+    };
+
     const mintHandler = async () => {
+        const d = await fetchData();
         const accounts = await web3.eth.getAccounts();
         const NFTInstance = NFTContract(web3);
-        const result = await NFTInstance.methods
-            .mint(
-                accounts[0],
-                'https://tomato-secure-lobster-753.mypinata.cloud/ipfs/QmetdCtV3nt4kgYwe7S6BXrXrGTqZsHn57r7DDMyoeJSJ5?_gl=1*42x03g*_ga*NDEzMDMxNTI1LjE2ODk4NjUxMTY.*_ga_5RMPXG14TE*MTY5MDU5MDA4My4zLjEuMTY5MDU5MDA4OC41NS4wLjA.'
-            )
-            .send({ from: accounts[0] });
+        const owner = await NFTInstance.methods.owner().call();
+
+        const result = await NFTInstance.methods.mint(accounts[0], d).send({ from: owner });
         console.log(result);
     };
 

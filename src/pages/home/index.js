@@ -29,7 +29,6 @@ const Card = ({ nfts }) => {
         const d = await fetchData();
         const accounts = await web3.eth.getAccounts();
         const NFTInstance = NFTContract(web3);
-        const owner = await NFTInstance.methods.owner().call();
 
         const result = await NFTInstance.methods.mint(accounts[0], d).send({ from: accounts[0] });
         console.log(result);

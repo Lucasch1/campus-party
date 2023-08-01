@@ -67,10 +67,10 @@ const Navbar = () => {
             animate={{ y: visible ? 0 : '-130%' }}
             transition={{ duration: 0.3 }}
         >
-            <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-8 bg-black md:bg-black  md:rounded-xl md:mx-4 text-white">
-                <div className="flex items-center justify-between h-16">
+            <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-8 bg-[url(../../public/woodmenu.svg)] bg-contain bg-no-repeat bg-center  md:rounded-xl md:mx-4 text-white">
+                <div className="flex items-center justify-between h-24">
                     <div className="w-full flex items-center justify-between">
-                        <Link href="/" className="flex-shrink-0 flex items-center">
+                        <Link href="/" className="flex-shrink-0 flex items-center font-bold text-3xl text-dbrown">
                             {/*<Image src={logo} alt="logo" className="max-h-16 w-auto mr-2" />*/}
                             <div>LOGO</div>
                         </Link>

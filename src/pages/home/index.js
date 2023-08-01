@@ -52,82 +52,86 @@ const Card = ({ nfts }) => {
     return (
         <>
             <Navbar />
-            <div className="min-h-screen grid grid-cols-3 gap-20 max-w-7xl mx-auto p-4">
-                {cardData.map((card, index) => (
-                    <motion.div
-                        key={index}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-[url(../../public/mapa.svg)] bg-contain bg-no-repeat bg-center aspect-[1/1.5] p-6 cursor-pointer relative  my-auto flex flex-col items-center"
-                    >
-                        <Image
-                            src={card.imageSrc}
-                            alt={card.title}
-                            className="w-full h-2/3 object-cover rounded-lg"
-                        />
-                        <h2 className="text-3xl text-white font-semibold my-4">{card.title}</h2>
-                        <button
-                            onClick={mintHandler}
-                            className="mt-2 w-2/3 bg-white hover:bg-black hover:text-white px-4 py-4 rounded-xl"
-                        >
-                            {card.buttonText}
-                        </button>
+            <div className="w-full bg-[url(../../public/woodbg.svg)] bg-cover bg-center">
+                <div className="  min-h-screen grid grid-cols-3 gap-20 max-w-7xl mx-auto p-4">
+                    {cardData.map((card, index) => (
                         <motion.div
-                            onClick={() => handleIconClick(index)}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            className="absolute top-1/4 right-10 px-4 py-2 rounded-lg"
+                            key={index}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="bg-[url(../../public/mapa.svg)] bg-contain bg-no-repeat bg-center aspect-[1/1.4] cursor-pointer relative  my-auto flex flex-col items-center"
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="33"
-                                height="33"
-                                viewBox="0 0 33 33"
-                                fill="none"
-                            >
-                                <path
-                                    d="M18.3802 21.3633C17.5776 22.2173 17.0559 22.5738 16.6984 22.5738C16.4497 22.5738 16.365 22.3532 16.4205 21.8556C16.5876 20.5626 17.5504 16.4043 17.8243 14.9188C18.0993 13.6479 18.0177 12.9883 17.6592 12.9883C16.9733 12.9883 15.2916 14.1172 14.1899 15.2452C14.1335 15.3318 14.0247 15.7981 14.0811 15.9622C14.0811 16.0186 14.1627 16.0468 14.1627 16.0468C14.8243 15.5231 15.348 15.2189 15.6521 15.2189C15.788 15.2189 15.8415 15.4385 15.7609 15.8252C15.4306 17.4768 14.8797 20.0407 14.4668 22.1596C14.0811 24.0076 14.3268 24.7499 14.9059 24.7499C15.4849 24.7499 17.0822 23.9775 18.3803 22.2423C18.4326 22.1073 18.4861 21.5856 18.4609 21.4458C18.4608 21.3925 18.3802 21.3633 18.3802 21.3633Z"
-                                    fill="black"
-                                />
-                                <path
-                                    d="M18.1294 8.25C17.6591 8.25 17.0821 8.47004 16.8071 8.74648C16.6983 8.88448 16.5876 9.29685 16.5584 9.51637C16.5876 10.0134 16.7245 10.2888 17.0005 10.4549C17.1363 10.5632 18.0458 10.4816 18.2392 10.3704C18.5736 10.1514 18.8726 9.70973 18.929 9.18605C18.9532 8.93984 18.9008 8.60701 18.791 8.44284C18.7357 8.3608 18.5141 8.25 18.1294 8.25Z"
-                                    fill="black"
-                                />
-                                <path
-                                    d="M16.5 0C7.38691 0 0 7.38691 0 16.5C0 25.6131 7.38691 33 16.5 33C25.6131 33 33 25.6131 33 16.5C33 7.38691 25.6131 0 16.5 0ZM16.5 30.4219C8.81094 30.4219 2.57812 24.1891 2.57812 16.5C2.57812 8.81094 8.81094 2.57812 16.5 2.57812C24.1891 2.57812 30.4219 8.81094 30.4219 16.5C30.4219 24.1891 24.1891 30.4219 16.5 30.4219Z"
-                                    fill="black"
-                                />
-                            </svg>
-                        </motion.div>
-                    </motion.div>
-                ))}
-                {showPopup !== null && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-white/25 backdrop-blur-2xl"
-                    >
-                        <div
-                            onClick={() => handleIconClick(null)}
-                            className="max-w-7xl h-[40%] bg-black/50 w-full flex p-12 rounded-lg"
-                        >
-                            <Image
-                                src={cardData[showPopup].imageSrc}
-                                alt={cardData[showPopup].title}
-                                className="h-full w-1/2 mr-10 object-cover bg-white rounded-lg"
-                            />
-                            <div className="text-white w-1/2">
-                                <h3 className="text-3xl ">SOBRE A COLEÇÃO</h3>
-                                <p className="text-xl">
-                                    hsdfbsdjfhsjkdhfsjkdhfskdjhfasdasdasdasdl sjkdhfslk
-                                    jdhfksjhdfkljsdhfkssjdfhskjdhfskdljhfskjdfhsdjhfksjdhfksjdhfkjsdhkj
-                                </p>
+                            <h2 className="text-3xl text-dbrown font-semibold h-[26%] flex items-center">
+                                {card.title}
+                            </h2>
+                            <div className="w-full  h-[44%] flex items-center justify-center">
+                                <div className="h-2/3 w-full bg-[url(../../public/bau.svg)] bg-contain bg-no-repeat bg-center" />
                             </div>
-                        </div>
-                    </motion.div>
-                )}
+
+                            <button
+                                onClick={mintHandler}
+                                className="h-[10%] w-1/2 bg-[url(../../public/woodbt.svg)] bg-contain bg-no-repeat bg-center text-cbrown hover:text-white active:text-cbrown font-bold px-4"
+                            >
+                                {card.buttonText}
+                            </button>
+                            <div className="h-[20%] w-full"></div>
+                            <motion.div
+                                onClick={() => handleIconClick(index)}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="absolute top-1/4 right-[10%] px-4 py-2"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="42"
+                                    height="43"
+                                    viewBox="0 0 42 43"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M23.3964 27.9494C22.3808 29.03 21.7207 29.4811 21.2683 29.4811C20.9536 29.4811 20.8465 29.202 20.9166 28.5724C21.1281 26.9362 22.3464 21.6746 22.693 19.795C23.0409 18.1868 22.9376 17.3522 22.484 17.3522C21.6162 17.3522 19.4883 18.7807 18.0942 20.2079C18.0228 20.3175 17.8852 20.9075 17.9565 21.1152C17.9565 21.1866 18.0597 21.2222 18.0597 21.2222C18.897 20.5596 19.5596 20.1747 19.9444 20.1747C20.1164 20.1747 20.184 20.4525 20.0821 20.9418C19.6641 23.0317 18.967 26.2759 18.4446 28.9571C17.9566 31.2954 18.2675 32.2346 19.0002 32.2346C19.7328 32.2346 21.754 31.2573 23.3965 29.0616C23.4627 28.8908 23.5303 28.2307 23.4984 28.0538C23.4983 27.9863 23.3964 27.9494 23.3964 27.9494Z"
+                                        fill="#3A2020"
+                                    />
+                                    <path
+                                        d="M23.079 11.3565C22.4839 11.3565 21.7538 11.635 21.4059 11.9847C21.2682 12.1594 21.1281 12.6811 21.0911 12.9589C21.1281 13.5878 21.3014 13.9363 21.6505 14.1465C21.8224 14.2835 22.9733 14.1803 23.2179 14.0395C23.641 13.7624 24.0195 13.2036 24.0908 12.541C24.1214 12.2294 24.0551 11.8083 23.9161 11.6005C23.8462 11.4967 23.5658 11.3565 23.079 11.3565Z"
+                                        fill="#3A2020"
+                                    />
+                                    <path
+                                        d="M21.0173 0.917542C9.48609 0.917542 0.13913 10.2645 0.13913 21.7957C0.13913 33.3269 9.48609 42.6738 21.0173 42.6738C32.5484 42.6738 41.8954 33.3269 41.8954 21.7957C41.8954 10.2645 32.5484 0.917542 21.0173 0.917542ZM21.0173 39.4116C11.288 39.4116 3.40134 31.525 3.40134 21.7957C3.40134 12.0664 11.288 4.17975 21.0173 4.17975C30.7466 4.17975 38.6332 12.0664 38.6332 21.7957C38.6332 31.525 30.7466 39.4116 21.0173 39.4116Z"
+                                        fill="#3A2020"
+                                    />
+                                </svg>
+                            </motion.div>
+                        </motion.div>
+                    ))}
+                    {showPopup !== null && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center backdrop-blur-2xl"
+                        >
+                            <div
+                                onClick={() => handleIconClick(null)}
+                                className="max-w-7xl h-[40%] bg-black/50 w-full flex p-12 rounded-lg"
+                            >
+                                <Image
+                                    src={cardData[showPopup].imageSrc}
+                                    alt={cardData[showPopup].title}
+                                    className="h-full w-1/2 mr-10 object-cover bg-white rounded-lg"
+                                />
+                                <div className="text-white w-1/2">
+                                    <h3 className="text-3xl ">SOBRE A COLEÇÃO</h3>
+                                    <p className="text-xl">
+                                        hsdfbsdjfhsjkdhfsjkdhfskdjhfasdasdasdasdl sjkdhfslk
+                                        jdhfksjhdfkljsdhfkssjdfhskjdhfskdljhfskjdfhsdjhfksjdhfksjdhfkjsdhkj
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </div>
             </div>
         </>
     );

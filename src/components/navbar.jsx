@@ -74,7 +74,7 @@ const Navbar = () => {
                             {/*<Image src={logo} alt="logo" className="max-h-16 w-auto mr-2" />*/}
                             <div>LOGO</div>
                         </Link>
-                        <div className="hidden md:block">
+                        <div className="block">
                             <div className="ml-10 flex items-baseline space-x-4">
                                 {/*<div
                                     onClick={() => handleDropClick('drop2')}
@@ -97,7 +97,7 @@ const Navbar = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="mr-2 flex md:hidden">
+                    {/*<div className="mr-2 flex md:hidden">
                         <button
                             onClick={toggleNavbar}
                             className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
@@ -126,10 +126,10 @@ const Navbar = () => {
                                 )}
                             </svg>
                         </button>
-                    </div>
+                    </div>*/}
                 </div>
             </div>
-            {isOpen && (
+            {/*isOpen && (
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -155,7 +155,7 @@ const Navbar = () => {
                         >
                             Criar
                         </Link>
-                        {/*<div
+                        <div
                             onClick={() => handleDropClick('drop3')}
                             className="w-full text-center text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                         >
@@ -170,8 +170,8 @@ const Navbar = () => {
                                     </Link>
                                 </div>
                             )}
-                            </div>*/}
-                        {/* <div
+                            </div>
+                        <div
                             onClick={() => handleDropClick('drop4')}
                             className="w-full text-center text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                         >
@@ -186,7 +186,7 @@ const Navbar = () => {
                                     </Link>
                                 </div>
                             )}
-                        </div> */}
+                        </div>
 
                         <Link
                             href="/benefits"
@@ -197,7 +197,7 @@ const Navbar = () => {
                         <WalletButton />
                     </div>
                 </motion.div>
-            )}
+                            )*/}
         </motion.nav>
     );
 };

@@ -112,22 +112,47 @@ const Card = ({ nfts }) => {
                             exit={{ opacity: 0, scale: 0.8 }}
                             className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center backdrop-blur-2xl"
                         >
-                            <div
-                                onClick={() => handleIconClick(null)}
-                                className="max-w-7xl h-[40%] bg-black/50 w-full flex p-12 rounded-lg"
-                            >
+                            <div className="relative max-w-7xl aspect-[2.3/1] bg-[url(../../public/bigmap.svg)] bg-contain bg-no-repeat bg-center w-full flex px-52 py-28">
                                 <Image
                                     src={cardData[showPopup].imageSrc}
                                     alt={cardData[showPopup].title}
-                                    className="h-full w-1/2 mr-10 object-cover bg-white rounded-lg"
+                                    className="h-full w-1/3  object-cover bg-white rounded-lg"
                                 />
-                                <div className="text-white w-1/2">
+                                <div className="text-white w-2/3 pl-10">
                                     <h3 className="text-3xl ">SOBRE A COLEÇÃO</h3>
                                     <p className="text-xl">
-                                        hsdfbsdjfhsjkdhfsjkdhfskdjhfasdasdasdasdl sjkdhfslk
-                                        jdhfksjhdfkljsdhfkssjdfhskjdhfskdljhfskjdfhsdjhfksjdhfksjdhfkjsdhkj
+                                        hsdfbsdjfhsjkdhfsjkdhfskdjhfasdasdasdasdl sjkdhfslk jdhfksjhdfkljsdhfks
+                                        sjdfhskjdhfskdljhfskjdfhsdjhfk sjdhfksjdhfkjsdhkj
                                     </p>
                                 </div>
+                                <motion.div
+                                    onClick={() => handleIconClick(null)}
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    className="absolute top-[10%] right-[5%] px-4 py-2"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="52"
+                                        height="51"
+                                        viewBox="0 0 52 51"
+                                        fill="none"
+                                    >
+                                        <path
+                                            d="M47 5L5.33763 46M5 5L46.6624 46"
+                                            stroke="white"
+                                            stroke-width="10"
+                                            stroke-linecap="round"
+                                        />
+                                        <path
+                                            d="M47 5L5.33763 46M5 5L46.6624 46"
+                                            stroke="#3E0D0B"
+                                            stroke-width="10"
+                                            stroke-linecap="round"
+                                        />
+                                    </svg>
+                                </motion.div>
                             </div>
                         </motion.div>
                     )}

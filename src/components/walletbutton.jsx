@@ -85,7 +85,7 @@ const WalletButton = () => {
                 {showDrop.drop1 && (
                     <div className="absolute right-0 top-[100%] flex flex-col items-center rounded-xl p-4 bg-black/50 backdrop-blur-xl">
                         <Link
-                            href="/colection"
+                            href={`/${address}`}
                             className="py-1 px-5 bg-cbrown w-full rounded-xl mb-2 text-center hover:bg-dbrown hover:text-cbrown active:bg-cbrown active:text-dbrown"
                         >
                             COLEÇÃO

@@ -13,16 +13,12 @@ const LoginPage = () => {
         console.log(address);
     };
 
-    useEffect(
-        () => {
-            if (address) {
-                console.log('user logged in');
-                router.push('/home');
-            }
-        },
-        [address],
-        [router]
-    );
+    useEffect(() => {
+        if (address) {
+            console.log('user logged in');
+            router.push('/home');
+        }
+    }, [address, router]);
 
     return (
         <div className="flex items-center justify-end h-screen bg-[url(../../public/bg.png)] bg-cover bg-fixed bg-center">

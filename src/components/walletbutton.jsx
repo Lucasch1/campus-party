@@ -5,21 +5,14 @@ import Link from 'next/link';
 
 const WalletButton = () => {
     const [error, setError] = useState('');
-    const [address, setAddress] = useState(null);
+    const [address, setAddress] = useState('');
     //const walletButton = document.getElementById('walletButton');
 
     useEffect(() => {
-        const getAddress = async () => {
-            try {
-                const accounts = await web3.eth.getAccounts();
-                setAddress(accounts[0]);
-                documentgetElementById('walletButton').textContent = address.substring(0, 8) + '...';
-            } catch (err) {
-                setError(err.message);
-            }
-        };
-        getAddress();
-    }, [address]);
+        if (localStorage.getItem('userAddress')) {
+            setAddress(localStorage.getItem('userAddress'));
+        }
+    }, []);
 
     const [showDrop, setShowDrop] = useState({
         drop1: false,
@@ -56,6 +49,9 @@ const WalletButton = () => {
             console.log(accounts);
             setAddress(accounts[0]);
 
+            // Save the address to local storage
+            localStorage.setItem('userAddress', accounts[0]);
+
             /* criar uma copia local dos contratos */
 
             // Atualizar o texto do botão com o endereço da carteira
@@ -64,6 +60,14 @@ const WalletButton = () => {
         } catch (err) {
             setError(err.message);
         }
+    };
+
+    console.log(address);
+
+    const handleLogout = async () => {
+        // Clear the stored address from local storage
+        localStorage.removeItem('userAddress');
+        setAddress(null);
     };
 
     if (address) {
@@ -90,7 +94,10 @@ const WalletButton = () => {
                         >
                             COLEÇÃO
                         </Link>
-                        <button className="p-1 px-5 bg-cbrown w-full rounded-xl text-center hover:bg-dbrown hover:text-cbrown active:bg-cbrown active:text-dbrown">
+                        <button
+                            onClick={handleLogout}
+                            className="p-1 px-5 bg-cbrown w-full rounded-xl text-center hover:bg-dbrown hover:text-cbrown active:bg-cbrown active:text-dbrown"
+                        >
                             LOGOUT
                         </button>
                     </div>

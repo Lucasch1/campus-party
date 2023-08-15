@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import React from 'react';
 import App from 'next/app';
 import LoadingShape from '../components/loading';
+import { AuthProvider } from '../contexts/addresscontext';
 
 import { useRouter } from 'next/router';
 
@@ -27,7 +28,9 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             {loading && <LoadingShape color="orange" />}
-            <Component {...pageProps} />
+            <AuthProvider>
+                <Component {...pageProps} />
+            </AuthProvider>
         </>
     );
 }

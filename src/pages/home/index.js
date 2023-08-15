@@ -19,7 +19,7 @@ const Card = ({ nfts }) => {
         try {
             const response = await fetch('/api/backend');
             const result = await response.json();
-            const dat = result.resultado.photos[0].url;
+            const dat = result.resultado.IpfsHash;
             return dat;
         } catch (error) {
             console.error('Erro ao buscar dados da API', error);
@@ -28,10 +28,11 @@ const Card = ({ nfts }) => {
 
     const mintHandler = async () => {
         const d = await fetchData();
+        const link = `https://tomato-secure-lobster-753.mypinata.cloud/ipfs/${d}`;
         const accounts = await web3.eth.getAccounts();
         const NFTInstance = NFTContract(web3);
 
-        const result = await NFTInstance.methods.mint(accounts[0], d).send({ from: accounts[0] });
+        const result = await NFTInstance.methods.safeMint(link).send({ from: accounts[0] });
         console.log(result);
     };
 

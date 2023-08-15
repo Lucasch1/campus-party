@@ -11,13 +11,18 @@ contract MyToken is ERC721, ERC721URIStorage, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721('MyToken', 'MTK') {}
+    uint[] public ids;
+    mapping(address => uint[]) userNFTs;
+
+    constructor() ERC721('MidasChest', 'MDC') {}
 
     function safeMint(string memory uri) public {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, uri);
+        ids.push(tokenId);
+        userNFTs[msg.sender].push(tokenId);
     }
 
     // The following functions are overrides required by Solidity.
@@ -32,5 +37,13 @@ contract MyToken is ERC721, ERC721URIStorage, Ownable {
 
     function supportsInterface(bytes4 interfaceId) public view override(ERC721, ERC721URIStorage) returns (bool) {
         return super.supportsInterface(interfaceId);
+    }
+
+    function getNFts() public view returns (uint[] memory) {
+        return ids;
+    }
+
+    function getUserNFTs(address user) public view returns (uint[] memory) {
+        return userNFTs[user];
     }
 }

@@ -1,4 +1,4 @@
-import web3 from '../../instances/web3';
+import web3 from '../../backend/instances/web3';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';

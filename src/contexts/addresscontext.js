@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react';
-import web3 from '../../instances/web3';
+import web3 from '../../backend/instances/web3';
 
 const AuthContext = createContext();
 

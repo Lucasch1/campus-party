@@ -1,6 +1,5 @@
-import NFTContract from '../../../instances/NFT';
-
-import web3 from '../../../instances/web3';
+import NFTContract from '../../../backend/instances/NFT';
+import web3 from '../../../backend/instances/web3';
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';

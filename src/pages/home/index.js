@@ -2,8 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Navbar from '@/components/navbar';
-import web3 from '../../../instances/web3';
-import NFTContract from '../../../instances/NFT';
+import web3 from '../../../backend/instances/web3';
+import NFTContract from '../../../backend/instances/NFT';
 import { useState } from 'react';
 import maps from '../../../public/mapa.svg';
 

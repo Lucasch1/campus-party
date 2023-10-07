@@ -32,7 +32,9 @@ const Card = ({ nfts }) => {
         const accounts = await web3.eth.getAccounts();
         const NFTInstance = NFTContract(web3);
 
-        const result = await NFTInstance.methods.safeMint(link).send({ from: accounts[0] });
+        const result = await NFTInstance.methods
+            .safeMint(link)
+            .send({ from: accounts[0], value: '100000000000000000' });
         console.log(result);
     };
 

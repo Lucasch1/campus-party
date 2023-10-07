@@ -10,13 +10,17 @@ contract MyToken is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
-
+    address payable dono;
     uint[] public ids;
     mapping(address => uint[]) userNFTs;
 
-    constructor() ERC721('MidasChest', 'MDC') {}
+    constructor() ERC721('MidasChest', 'MDC') {
+        dono = payable(msg.sender);
+    }
 
-    function safeMint(string memory uri) public {
+    function safeMint(string memory uri) public payable {
+        require(msg.value >= 0.001 ether, 'Not enough ether');
+        dono.transfer(msg.value);
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(msg.sender, tokenId);

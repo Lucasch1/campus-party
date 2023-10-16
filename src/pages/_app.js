@@ -1,6 +1,6 @@
 import '../styles/globals.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import App from 'next/app';
 import LoadingShape from '../components/loading';
 import { AuthProvider } from '../contexts/addresscontext';
 

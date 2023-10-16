@@ -3,11 +3,73 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&family=Ribeye&display=swap');
+@keyframes openEfect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
 
 body {
   font-family: 'Oxygen', sans-serif;
+  background-image: url(../../public/woodbg.svg);
+  background-size: cover;
 }
+.backgroud-filter{
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 130vh;
+}
+.backgroud-bau{
+  animation-name: openEfect;
+  animation-duration: 2s;
 
+  background-image: url(../../public/bigmap.svg);
+  background-size: 90%;
+  background-repeat: no-repeat;
+
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  height: 120%;
+  right: 0%;
+  
+  .container-bau{
+
+    margin-top: 5%;
+    margin-left: 18%;
+
+    height: 20vw;
+    width: 55%;
+  }
+  
+}
 .ribe {
   font-family: 'Ribeye', cursive;
 }
+
+.roulette-config {
+  background: url(../../public/mapa.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  aspect-ratio: 1 / 1.2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card-titles{
+  height: 26%;
+  display: flex;
+  align-items: center;
+}
+.button-mint{
+  height: 10%;
+  width: 50%;
+  background-image: url('../../public/woodbt.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+

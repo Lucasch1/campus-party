@@ -1,11 +1,9 @@
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Navbar from '@/components/navbar';
-import web3 from '../../../instances/web3';
-import NFTContract from '../../../instances/NFT';
+import web3 from '../../instances/web3';
+import NFTContract from '../../instances/NFT';
 import { useState, React } from 'react';
+import { motion } from 'framer-motion';
 
-const Card = ({ nfts }) => {
+const Roulette = ({ nfts }) => {
     console.log(nfts);
     const [showPopup, setShowPopup] = useState(null);
 
@@ -25,15 +23,23 @@ const Card = ({ nfts }) => {
     };
 
     const mintHandler = async () => {
-        const d = await fetchData();
-        const link = `https://tomato-secure-lobster-753.mypinata.cloud/ipfs/${d}`;
-        const accounts = await web3.eth.getAccounts();
-        const NFTInstance = NFTContract(web3);
-
-        const result = await NFTInstance.methods
-            .safeMint(link)
-            .send({ from: accounts[0], value: '10' });
-        console.log(result);
+        try{
+            const d = await fetchData();
+            const link = `https://tomato-secure-lobster-753.mypinata.cloud/ipfs/${d}`;
+            const accounts = await web3.eth.getAccounts();
+            const NFTInstance = NFTContract(web3);
+    
+            const result = await NFTInstance.methods
+                .safeMint(link)
+                .send({ from: accounts[0], value: '10' });
+            console.log(result);
+        }catch (error){
+            if (error.message.includes("User denied transaction signature")){
+                console.log("Transação rejeitada pelo usuário!")
+            }else{
+                console.error(error)
+            }
+        }
     };
 
     const cardData = [
@@ -56,33 +62,34 @@ const Card = ({ nfts }) => {
             hoverInfo: 'Informações sobre o Card 3',
         },
     ];
-
     return (
         <>
-            <Navbar />
-            <div className="w-full bg-[url(../../public/woodbg.svg)] bg-cover bg-center">
-                <div className="  min-h-screen grid grid-cols-3 gap-20 max-w-7xl mx-auto p-4">
+            <div>
+                <div className="grid grid-cols-3">
                     {cardData.map((card, index) => (
                         <motion.div
                             key={index}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-[url(../../public/mapa.svg)] bg-contain bg-no-repeat bg-center aspect-[1/1.4] cursor-pointer relative  my-auto flex flex-col items-center"
+                            className="roulette-config"
                         >
-                            <h2 className="text-3xl text-dbrown font-semibold h-[26%] flex items-center">
+                            <h2 className="card-titles text-3xl text-dbrown font-semibold">
                                 {card.title}
                             </h2>
-                            <div className="w-full  h-[44%] flex items-center justify-center">
-                                <div className="h-2/3 w-full bg-[url(../../public/bau.svg)] bg-contain bg-no-repeat bg-center" />
+
+                            <div className="w-full h-[44%] flex items-center">
+                                <div className="h-2/3 w-full bg-[url(../../public/bau.svg)] bg-no-repeat bg-center" />
                             </div>
 
                             <button
                                 onClick={mintHandler}
-                                className="h-[10%] w-1/2 bg-[url(../../public/woodbt.svg)] bg-contain bg-no-repeat bg-center text-cbrown hover:text-white active:text-cbrown font-bold px-4"
+                                className="button-mint text-cbrown hover:text-white active:text-cbrown font-bold"
                             >
                                 {card.buttonText}
                             </button>
+
                             <div className="h-[20%] w-full"></div>
+
                             <motion.div
                                 onClick={() => handleIconClick(index)}
                                 initial={{ opacity: 0, y: -10 }}
@@ -121,11 +128,11 @@ const Card = ({ nfts }) => {
                             className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center backdrop-blur-2xl"
                         >
                             <div className="relative max-w-7xl aspect-[2.3/1] bg-[url(../../public/bigmap.svg)] bg-contain bg-no-repeat bg-center w-full flex px-52 py-28">
-                                <Image
+                                {/* ANALISAR O PORQUE ESTA DANDO ERRO <Image
                                     src={cardData[showPopup].imageSrc}
                                     alt={cardData[showPopup].title}
                                     className="h-full w-1/3  object-cover bg-white rounded-lg"
-                                />
+                                />*/}
                                 <div className="text-white w-2/3 pl-10">
                                     <h3 className="text-3xl ">SOBRE A COLEÇÃO</h3>
                                     <p className="text-xl">
@@ -168,7 +175,7 @@ const Card = ({ nfts }) => {
             </div>
         </>
     );
-};
+}
 
 export const getServerSideProps = async () => {
     const accounts = await web3.eth.getAccounts();
@@ -181,4 +188,4 @@ export const getServerSideProps = async () => {
     return { props: { nfts } };
 };
 
-export default Card;
+export default Roulette;

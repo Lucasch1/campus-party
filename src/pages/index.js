@@ -1,8 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import WalletButton from '@/components/walletbutton';
-import { useAuth } from '@/contexts/addresscontext';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 const LoginPage = () => {

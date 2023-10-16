@@ -76,7 +76,7 @@ const WalletButton = () => {
                 onClick={() => handleDropClick('drop1')}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="py-2 px-4 relative text-dbrown"
+                className="py-2 px-4 relative text-dbrown "
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58" fill="none">
                     <path

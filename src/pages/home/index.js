@@ -6,7 +6,6 @@ import NFTContract from '../../../instances/NFT';
 import { useState, React } from 'react';
 
 const Card = ({ nfts }) => {
-    console.log(nfts);
     const [showPopup, setShowPopup] = useState(null);
 
     const handleIconClick = (index) => {

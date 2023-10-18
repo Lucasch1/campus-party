@@ -1,8 +1,10 @@
-import Button from 'react-bootstrap/Button';
+import FormLogin from '@/components/formLogin';
+
 const AuthLogin = () => {
     return (
-            <Button variant="primary">Primary</Button>
-
+        <>
+            <FormLogin/>
+        </>
     );
-}
+};
 export default AuthLogin;

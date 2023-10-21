@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import web3 from '../../instances/web3';
+import Users from '../../instances/Users';
+
 
 
 const FormLogin = () => {
@@ -7,30 +10,37 @@ const FormLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
+    const [passwordHash, setPasswordHash] = useState('');
 
     const [menssage, setMessage] = useState();
 
-    const objectUser = [
-        {
-            name: name,
-            email: email,
-            password: password
-        }
-    ]
+    const objectUser = useMemo(() => [{
+        name: name,
+        email: email,
+        password: password
+    }], [name, email, password]);
 
     useEffect(() => {
         if (password == passwordRepeat){
             setMessage('Ok, as senhas conferem !')
-            
+            const hash = web3.utils.keccak256(objectUser[0].password)
+            setPasswordHash(hash)            
         }else{
             setMessage('Opá, suas senhas não estão iguais...')
         }
-    }, [password, passwordRepeat]);
+    }, [password, passwordRepeat, objectUser]);
 
     const mintRegister = async () => {
-        console.log('Registrado')
-        console.log('object_user: ', objectUser)    
 
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+
+        const contract = Users(web3);
+
+        const result = await contract.methods
+            .registerUser(objectUser[0].name, objectUser[0].email, passwordHash)
+            .send({from: account})
+        console.log(result)
     }
 
 

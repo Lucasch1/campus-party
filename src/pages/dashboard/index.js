@@ -9,8 +9,6 @@ const Dashboard = () => {
         <div className='backgroud-bau'>
             <div className='container-bau'>
               {/*
-              <Navbar/>
-              <Roulette/>
               */}
               <AuthLogin/>
             </div>

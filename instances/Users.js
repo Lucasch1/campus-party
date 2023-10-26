@@ -1,5 +1,6 @@
 const { abi } = require('../build/contracts/Users.json');
-const contract = '0x94264efbb8b1799ef4db85ef418077c012aab701' // Contrato Publicado
+const contract = '0x8d2ADdd49E49890E2E3F50d61909d36ea714C8c8' // Contrato Publicado
+const owner = '0xe782f9D792CC203cC238CbAD56231C239947b2ba' // Contrato Publicado
 
 
 const users = (web3) => {

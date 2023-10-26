@@ -28,9 +28,13 @@ contract Users is Ownable {
         _emailToUserId[email] = userId;
     }
 
-    function getUserByEmail(string memory email) public view onlyOwner returns (string memory, string memory, bytes32) {
+    function getUserByEmail(string memory email) public view onlyOwner returns (string memory) {
         uint256 userId = _emailToUserId[email];
-        return (_users[userId].name, _users[userId].email, _users[userId].passwordHash);
+        if (userId == 0 || userId > _userIdCounter.current()) {
+            return "User does not exist";
+        } else {
+            return "User exists";
+        }
     }
 
 }

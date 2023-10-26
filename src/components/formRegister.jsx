@@ -1,48 +1,96 @@
 import { useEffect, useState, useMemo } from 'react';
 import web3 from '../../instances/web3';
-import Users from '../../instances/Users';
+import {regiterBlockchain} from '../../src/pages/services/web3_services'
+import {getUserBlockchain} from '../../src/pages/services/web3_services'
 
 
-
-const FormLogin = () => {
+const FormRegister = ({ setLoading }) => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordHash, setPasswordHash] = useState('');
+    const [account, setAccount] = useState('');
 
     const [menssage, setMessage] = useState();
+    const [btnDisable, setBtnDisable] = useState();
+    const [formValid, setFormValid] = useState(false);
 
     const objectUser = useMemo(() => [{
         name: name,
         email: email,
-        password: password
-    }], [name, email, password]);
+        password: passwordHash,
+        account: account
+    }], [name, email, passwordHash, account]);
 
+
+    //Validação formulário RegisterUser
     useEffect(() => {
-        if (password == passwordRepeat){
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let message = '';
+        let formIsValid = true;
+    
+        if (!name || name.trim().length === 0) {
+            message = 'Parece que seu Nome não foi preenchido..';
+            formIsValid = false;
+        } else if (!email || !emailRegex.test(email)) {
+            message = 'Por favor, insira um e-mail válido.';
+            formIsValid = false;
+        } else if (!password || password.trim().length === 0) {
+            message = 'Por favor, insira uma senha.';
+            formIsValid = false;
+        } else if (!passwordRepeat || passwordRepeat.trim().length === 0) {
+            message = 'Por favor, repita a senha.';
+            formIsValid = false;
+        } else if (password !== passwordRepeat) {
+            message = 'Opá, suas senhas não estão iguais...';
+            formIsValid = false;
+        } else {
             setMessage('Ok, as senhas conferem !')
-            const hash = web3.utils.keccak256(objectUser[0].password)
-            setPasswordHash(hash)            
-        }else{
-            setMessage('Opá, suas senhas não estão iguais...')
+            const hash = web3.utils.keccak256(password)
+            setPasswordHash(hash)
         }
-    }, [password, passwordRepeat, objectUser]);
 
-    const mintRegister = async () => {
+        // Verificação da carteira
+        if (formValid) {
+            window.ethereum.request({method: 'eth_requestAccounts'}).then(accounts => {
+                const account = accounts[0];
+                if (account) {
+                    setAccount(account);
+                } else {
+                    message = 'Por favor, conecte sua carteira.';
+                    formIsValid = false;
+                }
+            }).catch(err => {
+                console.error(err);
+                message = 'Ocorreu um erro ao tentar conectar à carteira.';
+                formIsValid = false;
+            });
+        }
+        
+        setMessage(message);
+        setBtnDisable(!formIsValid);
+        setFormValid(formIsValid)
 
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const account = accounts[0];
+    }, [name, email, password, passwordRepeat, formValid]);
+        
 
-        const contract = Users(web3);
 
-        const result = await contract.methods
-            .registerUser(objectUser[0].name, objectUser[0].email, passwordHash)
-            .send({from: account})
-        console.log(result)
+    ////Revisão do formulario e registro
+    async function registerUser (){
+        console.log('objectUser', objectUser)
+        
+        const result = await getUserBlockchain(email);
+        if(result === "User exists"){
+            setMessage("E-mail Já cadastrado, defina outro...")
+        
+        } else {
+            setLoading(true);
+            const resultTransaction = await regiterBlockchain(objectUser)
+            console.log("Cadastro Realizado no MidasChest: ", resultTransaction)
+        }
     }
-
 
 
     return (
@@ -86,7 +134,11 @@ const FormLogin = () => {
                             onChange={e => setPasswordRepeat(e.target.value)}
                         />
                     </form>
-                    <button href={null} onClick={mintRegister} className="bg-success bg-slate-500 hover:bg-slate-700 text-white text-base rounded-lg py-2.5 px-5 transition-colors w-full text-[19px]">
+                    <button 
+                        disabled={btnDisable} 
+                        href={null} 
+                        onClick={registerUser} 
+                        className={`text-white text-base rounded-lg py-2.5 px-5 transition-colors w-full text-[19px] ${btnDisable ? 'bg-red-500' : 'bg-success bg-slate-500 hover:bg-slate-700'}`}>
                             Cadastrar-se
                     </button>
                     <span>{menssage}</span>
@@ -95,4 +147,4 @@ const FormLogin = () => {
         </>
     );
 };
-export default FormLogin;
+export default FormRegister;

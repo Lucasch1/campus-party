@@ -1,17 +1,10 @@
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import FormRegister from '@/components/formRegister';
 
-
-const FormLogin = () => {
+const FormLogin = ({handleShow}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     return (
         <>
@@ -47,14 +40,6 @@ const FormLogin = () => {
                 </div>
             </div>
         </div>
-            <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title></Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <FormRegister/>
-                </Modal.Body>
-            </Modal>
         </>
     );
 };

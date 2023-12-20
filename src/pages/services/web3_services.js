@@ -11,7 +11,7 @@ import axios from 'axios'
 export const regiterBlockchain = async (objectUser) => {
         const contract = Users(web3)
         const OBJECT = objectUser[0]
-            
+        console.log("objectUser backend: ", objectUser)
         const result = await contract.methods
             .registerUser(OBJECT.name, OBJECT.email, OBJECT.password)
             .send({from: OBJECT.account})
@@ -22,10 +22,29 @@ export const regiterBlockchain = async (objectUser) => {
 export const getUserBlockchain = async(email) => {
     let ABI = abi
     const owner = '0xe782f9D792CC203cC238CbAD56231C239947b2ba'
-    const address_contract = '0x8d2ADdd49E49890E2E3F50d61909d36ea714C8c8'
+    const address_contract = '0xE1bC327c933ef3a0085aE314DD549bD2feb16111'
     const contract = new web3.eth.Contract(ABI, address_contract)
     try {
         let result = await contract.methods.getUserByEmail(email).call({ from: owner });
+        console.log("getUserBlockchain: ", result)
+        return result;
+    } catch (error) {
+        console.log("getUserBlockchain: ", error)
+        return;
+    }
+}
+
+//Operação login usuário
+export const loginUser = async(email, password) => {
+    console.log("email, password BACK: ", email, password)
+    let passwordHash = web3.utils.keccak256(password);
+    let ABI = abi
+    const owner = '0xe782f9D792CC203cC238CbAD56231C239947b2ba'
+    const address_contract = '0xE1bC327c933ef3a0085aE314DD549bD2feb16111'
+    const contract = new web3.eth.Contract(ABI, address_contract)
+    try {
+        let result = await contract.methods.loginUser(email, passwordHash).call({ from: owner });
+        console.log("result-login: ", result)
         return result;
     } catch (error) {
         return;
@@ -33,7 +52,7 @@ export const getUserBlockchain = async(email) => {
 }
 
 function getContractTransaction (){
-    let address_contract = '0x8d2ADdd49E49890E2E3F50d61909d36ea714C8c8'
+    let address_contract = '0xE1bC327c933ef3a0085aE314DD549bD2feb16111'
     const API_KEY = 'J2V6FEQHVKG1UY5TQIZYMSX3TEEH4XQH2E'
 
     async function getTransactions() {

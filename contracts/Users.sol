@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
 contract Users is Ownable {
+    
     using Counters for Counters.Counter;
     using ECDSA for bytes32;
 
@@ -36,5 +37,19 @@ contract Users is Ownable {
             return "User exists";
         }
     }
+
+    function loginUser(string memory email, bytes32 passwordHash) public view onlyOwner returns (string memory) {
+    uint256 userId = _emailToUserId[email];
+    if (userId == 0 || userId > _userIdCounter.current()) {
+        return "Email not found";
+    } else {
+        User memory user = _users[userId];
+        if (user.passwordHash == passwordHash) {
+            return "Correct password";
+        } else {
+            return "Incorrect password";
+        }
+    }
+}
 
 }

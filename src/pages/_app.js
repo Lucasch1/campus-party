@@ -4,6 +4,7 @@ import React from 'react';
 import LoadingShape from '../components/loading';
 import { AuthProvider } from '../contexts/addresscontext';
 
+
 import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }) {

@@ -1,9 +1,38 @@
 import { useState } from 'react';
+import {loginUser} from '../../src/pages/services/web3_services'
 
-const FormLogin = ({handleShow}) => {
+const FormLogin = ({handleShow, setLoginPermission}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const [menssage, setMessage] = useState();
+
+
+    async function login(email, password) {
+        console.log("email, password FRONT: ", email, password);
+        try {
+            const result = await loginUser(email, password);
+            console.log("result: ", result);
+            switch (result) {
+                case 'Email not found':
+                    setMessage("E-mail não cadastrado!")
+                    break;
+                case 'Correct password':
+                    setMessage("OK")
+                    setLoginPermission(true)
+                    break;
+                case 'Incorrect password':
+                    setMessage("Sua senha parece estar incorreta...")
+                    break;
+                default:
+                    setMessage("Entre em contato com Suporte MidasChest!")
+                    break;
+            }
+        } catch (error) {
+            console.error("Erro ao fazer login: ", error);
+        }
+    }
 
 
     return (
@@ -30,13 +59,19 @@ const FormLogin = ({handleShow}) => {
                             placeholder="Senha"
                             value={password}
                             onChange={e => setPassword(e.target.value)}/>
-                        <button className="bg-primary bg-slate-500 hover:bg-slate-700 text-white text-base rounded-lg py-2.5 px-5 transition-colors w-full text-[19px]">
-                            Acessar
-                        </button>
                     </form>
+                    <button
+                            href={null}
+                            onClick={() => login(email, password)}
+                            className="w-full bg-green-500 text-white font-bold py-2 px-4 rounded"
+                            type="button"
+                        >
+                            Login
+                        </button>
                     <h6 className="mt-3 title-registreSe-custon" onClick={handleShow}>
                         Registre-se aqui!
                     </h6>
+                    <span className='fw-bold'>{menssage}</span>
                 </div>
             </div>
         </div>
